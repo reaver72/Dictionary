@@ -4,11 +4,11 @@ from difflib import get_close_matches
 import time
 
 Continue = ""
-data = json.load(open("dictionary.json"))
+data = json.load(open("data.json"))
 keys = data.keys()
 while Continue == "":
     keyword = input("Enter the word you want to search: ")
-    
+
     while len(keyword) < 1:
         message = print("Warning!\n"
                         "Blank keyword is restricted!\n")
@@ -21,8 +21,9 @@ while Continue == "":
 
         word = word.lower()
         if word in data.keys():
-            print(data[word])
-
+            result = data[word]
+            for i in range(len(result)):
+                print(result[i])
         else:
             print(
                 f"Sorry, the word '{keyword}' doesn't exist in this dictionary.")
@@ -44,7 +45,7 @@ while Continue == "":
                             "Sorry, Blank keyword is restricted !\n")
                         new_keyword = input(
                             "What word are you looking for? Type here correctly: ")
-                        
+
                     if new_keyword not in data.keys():
                         print(f"Searching the word '{new_keyword}' ....\n")
                         time.sleep(1.2)
@@ -56,7 +57,8 @@ while Continue == "":
                             f"\nDid you mean '{close_words_new[0]}' instead? ")
 
                         if new_input == "y" or new_input == "yes" or new_input == "yeah":
-                            print(f"Searching the word '{close_words_new[0]}'....\n")
+                            print(
+                                f"Searching the word '{close_words_new[0]}'....\n")
                             time.sleep(1.2)
                             print(data[close_words_new[0]])
                             quit()
